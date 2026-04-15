@@ -1,0 +1,170 @@
+---
+interface Props {
+  slug: string;
+  name: string;
+  category: string;
+  price: string;
+  status: string;
+  tags: string[];
+  short_desc: string;
+  image: string;
+}
+
+const { slug, name, category, price, status, tags, short_desc, image } = Astro.props;
+---
+
+<article class="product-card" data-category={category}>
+  <a href={`/product/${slug}`} class="card-image-link" tabindex="-1" aria-hidden="true">
+    <div class="card-image">
+      <img src={image} alt={name} loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+      <div class="card-image-placeholder" style="display:none">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="8" width="40" height="32" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
+          <circle cx="17" cy="20" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+          <path d="M4 36l10-10 8 8 8-10 14 12" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" fill="none"/>
+        </svg>
+        <span>{name}</span>
+      </div>
+    </div>
+  </a>
+
+  <div class="card-body">
+    <div class="card-meta">
+      <span class={`status status--${status}`}>
+        {status === 'available' ? 'IN STOCK' : status === 'sold' ? 'SOLD' : 'ENQUIRE'}
+      </span>
+      <span class="category-badge font-mono">{category.toUpperCase()}</span>
+    </div>
+
+    <a href={`/product/${slug}`} class="card-title-link">
+      <h3 class="card-title">{name}</h3>
+    </a>
+
+    <p class="card-desc">{short_desc}</p>
+
+    <div class="card-tags">
+      {tags.map(tag => <span class="tag">{tag}</span>)}
+    </div>
+
+    <div class="card-footer">
+      <span class="price">{price}</span>
+      <a href={`/product/${slug}`} class="btn btn-outline card-btn">VIEW →</a>
+    </div>
+  </div>
+</article>
+
+<style>
+  .product-card {
+    background: var(--darker);
+    border: 1px solid var(--border);
+    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    animation: pulse-glow 4s ease-in-out infinite;
+  }
+
+  .product-card:hover {
+    border-color: rgba(0, 245, 255, 0.5);
+    box-shadow: 0 0 30px rgba(0, 245, 255, 0.15);
+    animation: none;
+  }
+
+  .card-image {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: rgba(0, 245, 255, 0.03);
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .product-card:hover .card-image img {
+    transform: scale(1.03);
+  }
+
+  .card-image-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .card-body {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    flex: 1;
+  }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .category-badge {
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  .card-title-link {
+    text-decoration: none;
+  }
+
+  .card-title {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    color: var(--text);
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+
+  .card-title-link:hover .card-title {
+    color: var(--cyan);
+  }
+
+  .card-desc {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.5;
+    flex: 1;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .card-btn {
+    font-size: 0.75rem;
+    padding: 0.5rem 1rem;
+  }
+</style>

@@ -1,0 +1,253 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import ProductCard from '../components/ProductCard.astro';
+import { products } from '../data/products.js';
+
+const featured = products.filter(p => p.featured);
+---
+
+<Base title="Modded Hardware & Built Software">
+  <Hero
+    headline={`MODDED HARDWARE.<br/><span class="accent">BUILT SOFTWARE.</span><br/>NO BULLSHIT.`}
+    sub="Retro gaming hardware personally configured and tested before it leaves. Self-built software tools that actually work. Based in Norwich, UK."
+  />
+
+  <!-- What I sell -->
+  <section class="what-i-sell">
+    <div class="container">
+      <span class="section-label">// 01 — WHAT I SELL</span>
+      <div class="sell-grid">
+        <div class="sell-card">
+          <div class="sell-icon" aria-hidden="true">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="6" width="28" height="20" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <rect x="6" y="10" width="20" height="12" rx="1" stroke="currentColor" stroke-width="1.2" fill="none"/>
+              <circle cx="24" cy="22" r="2" stroke="currentColor" stroke-width="1.2" fill="none"/>
+              <path d="M10 16h4M10 19h2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <span class="tag">HARDWARE</span>
+          <h3>Modded Handhelds & Retro Builds</h3>
+          <p>PSPs running custom firmware, pre-configured retro handhelds, bespoke retro gaming PC builds. Every unit personally set up and tested — not dropped into a box straight from AliExpress.</p>
+          <ul class="sell-list font-mono">
+            <li>// PSP 1000 / 2000 / 3000 — CFW</li>
+            <li>// Anbernic / Miyoo retro handhelds</li>
+            <li>// Custom retro PC builds (commission)</li>
+            <li>// Other retro hardware — ask</li>
+          </ul>
+        </div>
+
+        <div class="sell-card">
+          <div class="sell-icon" aria-hidden="true">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="4" width="24" height="24" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <path d="M10 12l4 4-4 4M16 20h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="tag">SOFTWARE</span>
+          <h3>Self-Built Desktop Tools</h3>
+          <p>Practical desktop utilities built to solve real problems. No subscriptions, no accounts, no cloud dependency. Buy once, own it.</p>
+          <ul class="sell-list font-mono">
+            <li>// DocGen Pro — document templating</li>
+            <li>// More tools in development</li>
+            <li>// Windows desktop, standalone .exe</li>
+            <li>// One-time purchase, direct download</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Products -->
+  <section class="featured">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">// 02 — FEATURED</span>
+        <a href="/shop" class="view-all font-mono">VIEW ALL →</a>
+      </div>
+      <div class="products-grid">
+        {featured.map(p => <ProductCard {...p} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="how-it-works">
+    <div class="container">
+      <span class="section-label">// 03 — PROCESS</span>
+      <h2 class="section-title">How It Works</h2>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num font-crt">01</span>
+          <h3>Browse</h3>
+          <p>Check the shop for current stock. Hardware changes regularly — if you don't see what you're after, get in touch.</p>
+        </div>
+        <div class="step-arrow" aria-hidden="true">→</div>
+        <div class="step">
+          <span class="step-num font-crt">02</span>
+          <h3>Enquire or Buy</h3>
+          <p>For available stock: message me directly. For commissions (like custom PC builds): describe what you want and I'll quote you.</p>
+        </div>
+        <div class="step-arrow" aria-hidden="true">→</div>
+        <div class="step">
+          <span class="step-num font-crt">03</span>
+          <h3>Built & Tested</h3>
+          <p>Everything is personally configured and tested by me. No half-finished setups, no untested units.</p>
+        </div>
+        <div class="step-arrow" aria-hidden="true">→</div>
+        <div class="step">
+          <span class="step-num font-crt">04</span>
+          <h3>Delivered</h3>
+          <p>Shipped to you or local collection in Norwich. Software tools are a direct download link after payment.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* What I sell */
+  .sell-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .sell-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);
+  }
+
+  .sell-icon {
+    color: var(--cyan);
+    width: 32px;
+    height: 32px;
+  }
+
+  .sell-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+  }
+
+  .sell-card p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .sell-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.75rem;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+    margin-top: auto;
+  }
+
+  /* Featured */
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+  }
+
+  .section-header .section-label {
+    margin-bottom: 0;
+  }
+
+  .view-all {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .view-all:hover {
+    color: var(--cyan);
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  /* How it works */
+  .section-title {
+    margin: 0.5rem 0 3rem;
+  }
+
+  .steps {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .step {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .step-num {
+    font-size: 3rem;
+    color: var(--border);
+    line-height: 1;
+    display: block;
+  }
+
+  .step h3 {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    color: var(--cyan);
+  }
+
+  .step p {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .step-arrow {
+    font-family: var(--font-mono);
+    font-size: 1.5rem;
+    color: var(--border);
+    padding-top: 3rem;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 768px) {
+    .sell-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .products-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .steps {
+      flex-direction: column;
+    }
+
+    .step-arrow {
+      padding-top: 0;
+      transform: rotate(90deg);
+      align-self: center;
+    }
+  }
+</style>

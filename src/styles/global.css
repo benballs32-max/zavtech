@@ -1,0 +1,249 @@
+/* ============================================================
+   ZAVTECH.NET — Global Styles
+   Cyberpunk-retro terminal aesthetic
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&family=VT323&display=swap');
+
+/* ---- CSS Variables ---------------------------------------- */
+:root {
+  --cyan:    #00f5ff;
+  --magenta: #ff006e;
+  --yellow:  #ffee00;
+  --dark:    #050810;
+  --darker:  #020408;
+  --panel:   rgba(0, 245, 255, 0.04);
+  --border:  rgba(0, 245, 255, 0.2);
+  --text:    #c8e8f0;
+  --muted:   rgba(200, 232, 240, 0.5);
+
+  --font-heading: 'Orbitron', sans-serif;
+  --font-body:    'Rajdhani', sans-serif;
+  --font-mono:    'Share Tech Mono', monospace;
+  --font-crt:     'VT323', monospace;
+}
+
+/* ---- Reset ------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--dark);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  min-height: 100vh;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='4' fill='none' stroke='%2300f5ff' stroke-width='1.5'/%3E%3Cline x1='12' y1='0' x2='12' y2='8' stroke='%2300f5ff' stroke-width='1.5'/%3E%3Cline x1='12' y1='16' x2='12' y2='24' stroke='%2300f5ff' stroke-width='1.5'/%3E%3Cline x1='0' y1='12' x2='8' y2='12' stroke='%2300f5ff' stroke-width='1.5'/%3E%3Cline x1='16' y1='12' x2='24' y2='12' stroke='%2300f5ff' stroke-width='1.5'/%3E%3C/svg%3E") 12 12, crosshair;
+}
+
+/* ---- Fixed Background Effects ----------------------------- */
+
+/* Grid */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 245, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 245, 255, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Scanlines */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.06) 2px,
+    rgba(0, 0, 0, 0.06) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ---- Layout ----------------------------------------------- */
+main {
+  position: relative;
+  z-index: 1;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+section {
+  padding: 5rem 0;
+}
+
+/* ---- Typography ------------------------------------------- */
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  line-height: 1.1;
+  letter-spacing: 0.05em;
+}
+
+h1 { font-size: clamp(2rem, 6vw, 4rem); }
+h2 { font-size: clamp(1.5rem, 4vw, 2.5rem); }
+h3 { font-size: 1.25rem; }
+
+a {
+  color: var(--cyan);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--magenta);
+}
+
+/* ---- Section Labels --------------------------------------- */
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+/* ---- Buttons ---------------------------------------------- */
+.btn {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.75rem 1.75rem;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+}
+
+.btn-primary {
+  background: var(--cyan);
+  color: var(--dark);
+}
+
+.btn-primary:hover {
+  background: var(--magenta);
+  color: #fff;
+  box-shadow: 0 0 20px rgba(255, 0, 110, 0.4);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--cyan);
+  border: 1px solid var(--border);
+}
+
+.btn-outline:hover {
+  border-color: var(--magenta);
+  color: var(--magenta);
+  box-shadow: 0 0 15px rgba(255, 0, 110, 0.2);
+}
+
+/* ---- Tags / Badges ---------------------------------------- */
+.tag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--yellow);
+  background: rgba(255, 238, 0, 0.08);
+  border: 1px solid rgba(255, 238, 0, 0.3);
+  padding: 0.2rem 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  display: inline-block;
+}
+
+/* ---- Price ----------------------------------------------- */
+.price {
+  font-family: var(--font-crt);
+  font-size: 1.6rem;
+  color: var(--yellow);
+  letter-spacing: 0.05em;
+}
+
+/* ---- Status Badge ----------------------------------------- */
+.status {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.2rem 0.6rem;
+  display: inline-block;
+}
+
+.status--available {
+  color: var(--cyan);
+  border: 1px solid rgba(0, 245, 255, 0.4);
+  background: rgba(0, 245, 255, 0.06);
+}
+
+.status--sold {
+  color: var(--muted);
+  border: 1px solid rgba(200, 232, 240, 0.2);
+  background: rgba(200, 232, 240, 0.04);
+}
+
+.status--enquire {
+  color: var(--yellow);
+  border: 1px solid rgba(255, 238, 0, 0.4);
+  background: rgba(255, 238, 0, 0.06);
+}
+
+/* ---- Divider ---------------------------------------------- */
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 0;
+}
+
+/* ---- Utility ---------------------------------------------- */
+.text-cyan    { color: var(--cyan); }
+.text-magenta { color: var(--magenta); }
+.text-yellow  { color: var(--yellow); }
+.text-muted   { color: var(--muted); }
+.font-mono    { font-family: var(--font-mono); }
+.font-crt     { font-family: var(--font-crt); }
+
+/* ---- Glitch Animation ------------------------------------- */
+@keyframes glitch {
+  0%   { clip-path: inset(0 0 95% 0); transform: translate(-2px, 0); }
+  20%  { clip-path: inset(30% 0 50% 0); transform: translate(2px, 0); color: var(--magenta); }
+  40%  { clip-path: inset(60% 0 20% 0); transform: translate(-1px, 0); }
+  60%  { clip-path: inset(10% 0 80% 0); transform: translate(3px, 0); color: var(--cyan); }
+  80%  { clip-path: inset(50% 0 30% 0); transform: translate(-2px, 0); }
+  100% { clip-path: inset(0 0 0 0); transform: translate(0, 0); color: inherit; }
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  92%       { opacity: 1; }
+  93%       { opacity: 0.8; }
+  94%       { opacity: 1; }
+  96%       { opacity: 0.9; }
+  97%       { opacity: 1; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(0, 245, 255, 0.1); }
+  50%       { box-shadow: 0 0 30px rgba(0, 245, 255, 0.25); }
+}

@@ -1,0 +1,137 @@
+---
+import Base from '../layouts/Base.astro';
+import ProductCard from '../components/ProductCard.astro';
+import { products } from '../data/products.js';
+---
+
+<Base title="Shop" description="Browse modded retro gaming hardware and self-built software tools — all personally built and tested.">
+  <section class="shop-header">
+    <div class="container">
+      <span class="section-label">// 01 — INVENTORY</span>
+      <h1>Shop</h1>
+      <p class="shop-sub">Modded hardware and built software. Everything personally configured and tested before it ships.</p>
+    </div>
+  </section>
+
+  <section class="shop-body">
+    <div class="container">
+      <div class="filter-bar" role="tablist" aria-label="Filter products">
+        <button class="filter-tab active" data-category="all" role="tab" aria-selected="true">ALL</button>
+        <button class="filter-tab" data-category="hardware" role="tab" aria-selected="false">HARDWARE</button>
+        <button class="filter-tab" data-category="software" role="tab" aria-selected="false">SOFTWARE</button>
+      </div>
+
+      <div class="products-grid" id="products-grid">
+        {products.map(p => <ProductCard {...p} />)}
+      </div>
+
+      <p class="no-results font-mono" id="no-results" style="display:none">
+        // No products in this category yet.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .shop-header {
+    padding: 5rem 0 3rem;
+  }
+
+  .shop-header h1 {
+    margin: 0.5rem 0 1rem;
+  }
+
+  .shop-sub {
+    color: var(--muted);
+    max-width: 560px;
+    font-size: 1rem;
+  }
+
+  .filter-bar {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0;
+  }
+
+  .filter-tab {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--muted);
+    padding: 0.75rem 1.25rem;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+    margin-bottom: -1px;
+  }
+
+  .filter-tab:hover {
+    color: var(--text);
+  }
+
+  .filter-tab.active {
+    color: var(--cyan);
+    border-bottom-color: var(--cyan);
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .no-results {
+    color: var(--muted);
+    font-size: 0.85rem;
+    padding: 3rem 0;
+    text-align: center;
+  }
+
+  @media (max-width: 900px) {
+    .products-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 580px) {
+    .products-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  const tabs = document.querySelectorAll('.filter-tab');
+  const cards = document.querySelectorAll('.product-card');
+  const noResults = document.getElementById('no-results');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const cat = (tab as HTMLElement).dataset.category;
+
+      tabs.forEach(t => {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
+
+      let visible = 0;
+      cards.forEach(card => {
+        const cardCat = (card as HTMLElement).dataset.category;
+        const show = cat === 'all' || cardCat === cat;
+        (card as HTMLElement).style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+
+      if (noResults) {
+        noResults.style.display = visible === 0 ? 'block' : 'none';
+      }
+    });
+  });
+</script>
