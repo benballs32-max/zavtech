@@ -38,9 +38,10 @@ const currentPath = Astro.url.pathname;
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(5, 8, 16, 0.92);
+    background: rgba(10, 10, 18, 0.92);
     border-bottom: 1px solid var(--border);
     backdrop-filter: blur(8px);
+    box-shadow: 0 2px 20px rgba(0, 229, 255, 0.08);
   }
 
   .nav {
@@ -60,15 +61,21 @@ const currentPath = Astro.url.pathname;
     text-decoration: none;
     flex-shrink: 0;
     position: relative;
+    text-shadow: 0 0 10px var(--neon-blue), 0 0 20px rgba(0, 229, 255, 0.4);
+    animation: glitch-continuous 5s steps(1) infinite, neon-flicker 4s ease-in-out infinite;
   }
 
   .logo:hover {
-    animation: glitch 0.4s steps(1) forwards;
+    animation: glitch 0.3s steps(1) forwards;
     color: var(--text);
+    text-shadow: 0 0 15px var(--neon-blue), 0 0 30px rgba(0, 229, 255, 0.6);
   }
 
   .logo-dot {
     font-size: 1.5rem;
+    color: var(--neon-pink);
+    text-shadow: 0 0 10px var(--neon-pink), 0 0 20px rgba(255, 45, 149, 0.5);
+    animation: neon-blink 2s ease-in-out infinite;
   }
 
   .nav-links {
@@ -90,7 +97,8 @@ const currentPath = Astro.url.pathname;
 
   .nav-link:hover,
   .nav-link.active {
-    color: var(--cyan);
+    color: var(--neon-blue);
+    text-shadow: 0 0 10px rgba(0, 229, 255, 0.6);
   }
 
   .nav-toggle {
@@ -107,7 +115,8 @@ const currentPath = Astro.url.pathname;
     display: block;
     width: 22px;
     height: 2px;
-    background: var(--cyan);
+    background: var(--neon-blue);
+    box-shadow: 0 0 6px var(--neon-blue);
     transition: all 0.2s;
   }
 
@@ -124,7 +133,7 @@ const currentPath = Astro.url.pathname;
       right: 0;
       flex-direction: column;
       gap: 0;
-      background: rgba(2, 4, 8, 0.98);
+      background: rgba(6, 6, 10, 0.98);
       border-bottom: 1px solid var(--border);
       padding: 1rem 0;
     }

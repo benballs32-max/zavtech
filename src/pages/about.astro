@@ -122,8 +122,9 @@ import Base from '../layouts/Base.astro';
     font-size: 1.15rem;
     color: var(--text);
     line-height: 1.7;
-    border-left: 2px solid var(--cyan);
+    border-left: 2px solid var(--neon-blue);
     padding-left: 1.25rem;
+    box-shadow: -4px 0 20px -4px rgba(0, 229, 255, 0.4);
   }
 
   .about-content p {
@@ -136,16 +137,18 @@ import Base from '../layouts/Base.astro';
     font-family: var(--font-heading);
     font-size: 1rem;
     letter-spacing: 0.08em;
-    color: var(--cyan);
+    color: var(--neon-blue);
     margin-top: 0.5rem;
+    text-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
   }
 
   .about-content a {
-    color: var(--cyan);
+    color: var(--neon-blue);
   }
 
   .about-content a:hover {
-    color: var(--magenta);
+    color: var(--neon-pink);
+    text-shadow: 0 0 10px rgba(255, 45, 149, 0.5);
   }
 
   .contact-cta {
@@ -209,7 +212,7 @@ import Base from '../layouts/Base.astro';
   }
 
   .info-list a {
-    color: var(--cyan);
+    color: var(--neon-blue);
   }
 
   .ethos-list {

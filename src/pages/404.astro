@@ -22,11 +22,11 @@ import Base from '../layouts/Base.astro';
 
   .error-code {
     font-size: 8rem;
-    color: var(--cyan);
+    color: var(--neon-pink);
     line-height: 1;
     margin: 1rem 0 0.5rem;
-    text-shadow: 0 0 40px rgba(0, 245, 255, 0.3);
-    animation: flicker 6s ease-in-out infinite;
+    text-shadow: 0 0 30px var(--neon-pink), 0 0 60px rgba(255, 45, 149, 0.5), 0 0 100px rgba(255, 45, 149, 0.3);
+    animation: neon-flicker 3s ease-in-out infinite, glitch-continuous 6s steps(1) infinite;
   }
 
   .error-msg {

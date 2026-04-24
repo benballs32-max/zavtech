@@ -9,7 +9,7 @@ const featured = products.filter(p => p.featured);
 
 <Base title="Modded Hardware & Built Software">
   <Hero
-    headline={`MODDED HARDWARE.<br/><span class="accent">BUILT SOFTWARE.</span><br/>NO BULLSHIT.`}
+    headline={`MODDED HARDWARE.<br/><span class="accent">BUILT SOFTWARE.</span><br/>NO COMPROMISES.`}
     sub="Retro gaming hardware personally configured and tested before it leaves. Self-built software tools that actually work. Based in Norwich, UK."
   />
 
@@ -126,9 +126,10 @@ const featured = products.filter(p => p.featured);
   }
 
   .sell-icon {
-    color: var(--cyan);
+    color: var(--neon-blue);
     width: 32px;
     height: 32px;
+    filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.6));
   }
 
   .sell-card h3 {
@@ -176,7 +177,8 @@ const featured = products.filter(p => p.featured);
   }
 
   .view-all:hover {
-    color: var(--cyan);
+    color: var(--neon-blue);
+    text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
   }
 
   .products-grid {
@@ -205,16 +207,19 @@ const featured = products.filter(p => p.featured);
 
   .step-num {
     font-size: 3rem;
-    color: var(--border);
+    color: var(--neon-pink);
     line-height: 1;
     display: block;
+    opacity: 0.5;
+    text-shadow: 0 0 20px rgba(255, 45, 149, 0.5);
   }
 
   .step h3 {
     font-family: var(--font-heading);
     font-size: 0.9rem;
     letter-spacing: 0.08em;
-    color: var(--cyan);
+    color: var(--neon-blue);
+    text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
   }
 
   .step p {
@@ -226,9 +231,11 @@ const featured = products.filter(p => p.featured);
   .step-arrow {
     font-family: var(--font-mono);
     font-size: 1.5rem;
-    color: var(--border);
+    color: var(--neon-blue);
     padding-top: 3rem;
     flex-shrink: 0;
+    opacity: 0.7;
+    text-shadow: 0 0 8px rgba(0, 229, 255, 0.5);
   }
 
   @media (max-width: 768px) {
