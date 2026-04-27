@@ -333,3 +333,176 @@ a:hover {
   0%, 100% { border-color: rgba(0, 229, 255, 0.25); box-shadow: 0 0 10px rgba(0, 229, 255, 0.1); }
   50% { border-color: rgba(0, 229, 255, 0.5); box-shadow: 0 0 25px rgba(0, 229, 255, 0.2); }
 }
+
+/* ---- Scroll-triggered Animations ----------------------------- */
+
+/* Base states (hidden before scroll) */
+.scroll-fade-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.scroll-fade-in {
+  opacity: 0;
+  transition: opacity 0.6s ease-out;
+}
+
+.scroll-slide-left {
+  opacity: 0;
+  transform: translateX(-60px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.scroll-slide-right {
+  opacity: 0;
+  transform: translateX(60px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.scroll-scale {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+/* Visible states (after scroll into view) */
+.scroll-fade-up.in-view,
+.scroll-fade-in.in-view,
+.scroll-slide-left.in-view,
+.scroll-slide-right.in-view,
+.scroll-scale.in-view {
+  opacity: 1;
+  transform: translateY(0) translateX(0) scale(1);
+}
+
+/* Staggered children animation */
+.scroll-stagger > * {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  transition-delay: var(--stagger-delay, 0s);
+}
+
+.scroll-stagger.in-view > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Neon reveal - glow builds up */
+.scroll-neon-reveal {
+  opacity: 0;
+  text-shadow: none;
+  filter: brightness(0.5);
+  transition: opacity 0.4s ease-out, text-shadow 0.6s ease-out, filter 0.6s ease-out;
+}
+
+.scroll-neon-reveal.in-view {
+  opacity: 1;
+  text-shadow: 0 0 10px var(--neon-blue), 0 0 30px rgba(0, 229, 255, 0.5);
+  filter: brightness(1);
+}
+
+/* Glitch reveal - triggers glitch then settles */
+.scroll-glitch-reveal {
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+}
+
+.scroll-glitch-reveal.in-view {
+  opacity: 1;
+  animation: glitch 0.4s ease-out;
+}
+
+/* ---- View Transitions Customization -------------------------- */
+
+/* Fade transition (default) */
+::view-transition-old(root) {
+  animation: fade-out 0.2s ease-out forwards;
+}
+
+::view-transition-new(root) {
+  animation: fade-in 0.3s ease-out forwards;
+}
+
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* CRT flicker transition variant */
+::view-transition-old(root) {
+  animation: crt-off 0.15s ease-out forwards;
+}
+
+::view-transition-new(root) {
+  animation: crt-on 0.25s ease-out 0.1s forwards;
+  opacity: 0;
+}
+
+@keyframes crt-off {
+  0% { opacity: 1; transform: scale(1, 1); filter: brightness(1); }
+  50% { opacity: 1; transform: scale(1, 0.005); filter: brightness(2); }
+  100% { opacity: 0; transform: scale(0, 0); filter: brightness(0); }
+}
+
+@keyframes crt-on {
+  0% { opacity: 0; transform: scale(0, 0.005); filter: brightness(2); }
+  50% { opacity: 1; transform: scale(1, 0.005); filter: brightness(1.5); }
+  100% { opacity: 1; transform: scale(1, 1); filter: brightness(1); }
+}
+
+/* ---- Cursor Glow Trail ------------------------------------ */
+.cursor-particle {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background: var(--neon-blue);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(1);
+  animation: cursor-fade 0.6s ease-out forwards;
+  box-shadow:
+    0 0 4px var(--neon-blue),
+    0 0 8px rgba(0, 229, 255, 0.5);
+}
+
+@keyframes cursor-fade {
+  0% {
+    opacity: 0.4;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.3);
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-fade-up,
+  .scroll-fade-in,
+  .scroll-slide-left,
+  .scroll-slide-right,
+  .scroll-scale,
+  .scroll-stagger > *,
+  .scroll-neon-reveal,
+  .scroll-glitch-reveal {
+    transition: none;
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}

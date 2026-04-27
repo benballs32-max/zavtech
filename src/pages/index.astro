@@ -16,8 +16,8 @@ const featured = products.filter(p => p.featured);
   <!-- What I sell -->
   <section class="what-i-sell">
     <div class="container">
-      <span class="section-label">// 01 — WHAT I SELL</span>
-      <div class="sell-grid">
+      <span class="section-label scroll-fade-in">// 01 — WHAT I SELL</span>
+      <div class="sell-grid scroll-stagger">
         <div class="sell-card">
           <div class="sell-icon" aria-hidden="true">
             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -62,11 +62,11 @@ const featured = products.filter(p => p.featured);
   <!-- Featured Products -->
   <section class="featured">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header scroll-fade-in">
         <span class="section-label">// 02 — FEATURED</span>
         <a href="/shop" class="view-all font-mono">VIEW ALL →</a>
       </div>
-      <div class="products-grid">
+      <div class="products-grid scroll-stagger">
         {featured.map(p => <ProductCard {...p} />)}
       </div>
     </div>
@@ -75,9 +75,9 @@ const featured = products.filter(p => p.featured);
   <!-- How it works -->
   <section class="how-it-works">
     <div class="container">
-      <span class="section-label">// 03 — PROCESS</span>
-      <h2 class="section-title">How It Works</h2>
-      <div class="steps">
+      <span class="section-label scroll-fade-in">// 03 — PROCESS</span>
+      <h2 class="section-title scroll-neon-reveal">How It Works</h2>
+      <div class="steps scroll-stagger">
         <div class="step">
           <span class="step-num font-crt">01</span>
           <h3>Browse</h3>

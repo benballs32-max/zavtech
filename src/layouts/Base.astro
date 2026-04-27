@@ -1,4 +1,5 @@
 ---
+import { ViewTransitions } from 'astro:transitions';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
@@ -22,6 +23,7 @@ const { title, description = 'Modded retro gaming hardware and self-built softwa
   <title>{title} | ZavTech</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <ViewTransitions />
 </head>
 <body>
   <Nav />
@@ -29,5 +31,104 @@ const { title, description = 'Modded retro gaming hardware and self-built softwa
     <slot />
   </main>
   <Footer />
+
+  <script>
+    // Scroll-triggered animations using Intersection Observer
+    function initScrollAnimations() {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('in-view');
+              // Optional: unobserve after animation (remove for repeat animations)
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        {
+          threshold: 0.1,
+          rootMargin: '0px 0px -50px 0px'
+        }
+      );
+
+      // Observe all elements with scroll animation classes
+      document.querySelectorAll('.scroll-fade-up, .scroll-fade-in, .scroll-slide-left, .scroll-slide-right, .scroll-scale').forEach((el) => {
+        observer.observe(el);
+      });
+
+      // Staggered children animation
+      document.querySelectorAll('.scroll-stagger').forEach((container) => {
+        const children = container.children;
+        Array.from(children).forEach((child, index) => {
+          (child as HTMLElement).style.setProperty('--stagger-delay', `${index * 0.1}s`);
+        });
+        observer.observe(container);
+      });
+    }
+
+    // Initialize on first load
+    initScrollAnimations();
+
+    // Re-initialize after View Transitions navigation
+    document.addEventListener('astro:after-swap', initScrollAnimations);
+  </script>
+
+  <script>
+    // Subtle cursor glow trail
+    function initCursorTrail() {
+      // Skip on touch devices or reduced motion preference
+      if (window.matchMedia('(pointer: coarse)').matches) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      const trail: HTMLElement[] = [];
+      const maxParticles = 12;
+      let lastX = 0;
+      let lastY = 0;
+      let throttle = false;
+
+      function createParticle(x: number, y: number) {
+        const particle = document.createElement('div');
+        particle.className = 'cursor-particle';
+        particle.style.left = `${x}px`;
+        particle.style.top = `${y}px`;
+        document.body.appendChild(particle);
+        trail.push(particle);
+
+        // Remove after animation
+        setTimeout(() => {
+          particle.remove();
+          const idx = trail.indexOf(particle);
+          if (idx > -1) trail.splice(idx, 1);
+        }, 600);
+
+        // Limit max particles
+        if (trail.length > maxParticles) {
+          const old = trail.shift();
+          old?.remove();
+        }
+      }
+
+      function onMouseMove(e: MouseEvent) {
+        if (throttle) return;
+
+        // Only create particle if moved enough distance
+        const dist = Math.hypot(e.clientX - lastX, e.clientY - lastY);
+        if (dist < 20) return;
+
+        lastX = e.clientX;
+        lastY = e.clientY;
+
+        createParticle(e.clientX, e.clientY);
+
+        throttle = true;
+        setTimeout(() => { throttle = false; }, 50);
+      }
+
+      document.addEventListener('mousemove', onMouseMove);
+    }
+
+    initCursorTrail();
+    document.addEventListener('astro:after-swap', initCursorTrail);
+  </script>
 </body>
 </html>

@@ -18,7 +18,7 @@ const {
 
 <section class="hero">
   <div class="container hero-inner">
-    <span class="section-label">{label}</span>
+    <span class="section-label hero-label">{label}</span>
 
     <h1 class="hero-headline" set:html={headline} />
 
@@ -140,5 +140,73 @@ const {
     right: 1.5rem;
     border-bottom: 2px solid var(--border);
     border-right: 2px solid var(--border);
+  }
+
+  /* Hero entrance animations */
+  .hero-label {
+    animation: hero-fade-in 0.5s ease-out 0.1s both;
+  }
+
+  .hero-headline {
+    animation: hero-glitch-in 0.6s ease-out 0.2s both;
+  }
+
+  .hero-sub {
+    animation: hero-fade-in 0.6s ease-out 0.4s both;
+  }
+
+  .hero-ctas {
+    animation: hero-fade-in 0.6s ease-out 0.5s both;
+  }
+
+  .hero-status {
+    animation: hero-fade-in 0.6s ease-out 0.6s both;
+  }
+
+  @keyframes hero-fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes hero-glitch-in {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+      clip-path: inset(0 0 100% 0);
+    }
+    30% {
+      opacity: 1;
+      clip-path: inset(0 0 50% 0);
+      transform: translateY(15px) translateX(-3px);
+    }
+    50% {
+      clip-path: inset(30% 0 20% 0);
+      transform: translateY(10px) translateX(3px);
+    }
+    70% {
+      clip-path: inset(10% 0 0 0);
+      transform: translateY(5px) translateX(-1px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) translateX(0);
+      clip-path: inset(0 0 0 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-label,
+    .hero-headline,
+    .hero-sub,
+    .hero-ctas,
+    .hero-status {
+      animation: none;
+    }
   }
 </style>

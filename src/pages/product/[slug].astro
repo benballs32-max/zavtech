@@ -45,7 +45,7 @@ const descHtml = full_desc
 
       <div class="product-layout">
         <!-- Image -->
-        <div class="product-image-wrap">
+        <div class="product-image-wrap scroll-scale">
           <div class="product-image">
             <img
               src={image}
@@ -64,7 +64,7 @@ const descHtml = full_desc
         </div>
 
         <!-- Details -->
-        <div class="product-details">
+        <div class="product-details scroll-slide-right">
           <div class="product-meta">
             <span class={`status status--${status}`}>{statusLabel}</span>
             <span class="font-mono text-muted" style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em">{category}</span>
@@ -97,16 +97,16 @@ const descHtml = full_desc
       </div>
 
       <!-- Full description -->
-      <div class="product-description">
+      <div class="product-description scroll-fade-up">
         <span class="section-label">// DETAILS</span>
         <div class="desc-content" set:html={descHtml} />
       </div>
 
       <!-- Related products -->
       {related.length > 0 && (
-        <div class="related">
+        <div class="related scroll-fade-in">
           <span class="section-label">// RELATED</span>
-          <div class="related-grid">
+          <div class="related-grid scroll-stagger">
             {related.map(p => <ProductCard {...p} />)}
           </div>
         </div>

@@ -7,21 +7,21 @@ import { products } from '../data/products.js';
 <Base title="Shop" description="Browse modded retro gaming hardware and self-built software tools — all personally built and tested.">
   <section class="shop-header">
     <div class="container">
-      <span class="section-label">// 01 — INVENTORY</span>
-      <h1>Shop</h1>
-      <p class="shop-sub">Modded hardware and built software. Everything personally configured and tested before it ships.</p>
+      <span class="section-label scroll-fade-in">// 01 — INVENTORY</span>
+      <h1 class="scroll-glitch-reveal">Shop</h1>
+      <p class="shop-sub scroll-fade-up">Modded hardware and built software. Everything personally configured and tested before it ships.</p>
     </div>
   </section>
 
   <section class="shop-body">
     <div class="container">
-      <div class="filter-bar" role="tablist" aria-label="Filter products">
+      <div class="filter-bar scroll-fade-in" role="tablist" aria-label="Filter products">
         <button class="filter-tab active" data-category="all" role="tab" aria-selected="true">ALL</button>
         <button class="filter-tab" data-category="hardware" role="tab" aria-selected="false">HARDWARE</button>
         <button class="filter-tab" data-category="software" role="tab" aria-selected="false">SOFTWARE</button>
       </div>
 
-      <div class="products-grid" id="products-grid">
+      <div class="products-grid scroll-stagger" id="products-grid">
         {products.map(p => <ProductCard {...p} />)}
       </div>
 
